@@ -14,7 +14,7 @@ public final class TechnicalStackCeiling {
         if (stack.isEmpty()) {
             return 0;
         }
-        Integer intrinsic = stack.getDefaultComponents().get(DataComponents.MAX_STACK_SIZE);
+        Integer intrinsic = stack.getItem().components().get(DataComponents.MAX_STACK_SIZE);
         return intrinsic == null ? 1 : intrinsic;
     }
 

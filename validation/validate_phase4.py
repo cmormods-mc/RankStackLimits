@@ -33,7 +33,7 @@ require(mixin_config.get('required') is True and 'ItemStackTechnicalCeilingMixin
 require('TECHNICAL_MAX = 99' in technical, 'Technical ceiling remains inside the vanilla 1.21.1 limit')
 require('DataComponents.MAX_STACK_SIZE' in technical and 'stack.set(DataComponents.MAX_STACK_SIZE, TECHNICAL_MAX)' in technical,
         'Technical ceiling uses the vanilla max_stack_size component')
-require('stack.getDefaultComponents()' in technical, 'Intrinsic item limit comes from vanilla/default item components')
+require('stack.getItem().components()' in technical, 'Intrinsic item limit comes from the Item default component map')
 require('DataComponents.MAX_DAMAGE' in technical and 'intrinsic <= 1' in technical,
         'Damageable and vanilla max-1 stacks have hard safety guards')
 require('PatchedDataComponentMap' in mixin and '<init>(Lnet/minecraft/world/level/ItemLike;ILnet/minecraft/core/component/PatchedDataComponentMap;)V' in mixin,
