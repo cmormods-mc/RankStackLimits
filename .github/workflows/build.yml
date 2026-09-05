@@ -37,6 +37,9 @@ jobs:
       - name: Validate Phase 3 downgrade and eligibility safety
         run: python3 validation/validate_phase3.py
 
+      - name: Validate Phase 4 live inventory enforcement
+        run: python3 validation/validate_phase4.py
+
       - name: Compile, test, and remap
         run: gradle --no-daemon clean build --stacktrace --warning-mode all
 
@@ -49,6 +52,11 @@ jobs:
           jar tf "$jar" | grep -q 'com/cmormods/rankstacklimits/policy/LuckPermsStackLimitResolver.class'
           jar tf "$jar" | grep -q 'com/cmormods/rankstacklimits/policy/StackRedistributionPlanner.class'
           jar tf "$jar" | grep -q 'com/cmormods/rankstacklimits/policy/StackEligibilityPolicy.class'
+          jar tf "$jar" | grep -q 'com/cmormods/rankstacklimits/stack/TechnicalStackCeiling.class'
+          jar tf "$jar" | grep -q 'com/cmormods/rankstacklimits/inventory/PlayerInventoryReconciler.class'
+          jar tf "$jar" | grep -q 'com/cmormods/rankstacklimits/runtime/RankStackLimitRuntime.class'
+          jar tf "$jar" | grep -q 'com/cmormods/rankstacklimits/mixin/ItemStackTechnicalCeilingMixin.class'
+          jar tf "$jar" | grep -q 'rankstacklimits.mixins.json'
           if jar tf "$jar" | grep -Eiq 'item.?components|owo'; then
             echo 'Unexpected Item Components/owo content found in runtime JAR'
             exit 1

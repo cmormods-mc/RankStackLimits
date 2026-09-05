@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.cmormods.rankstacklimits.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ItemStackTechnicalCeilingMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

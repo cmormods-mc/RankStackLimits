@@ -2,6 +2,7 @@ package com.cmormods.rankstacklimits;
 
 import com.cmormods.rankstacklimits.config.RankStackLimitsConfig;
 import com.cmormods.rankstacklimits.policy.LuckPermsStackLimitResolver;
+import com.cmormods.rankstacklimits.runtime.RankStackLimitRuntime;
 import net.fabricmc.api.ModInitializer;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -21,8 +22,9 @@ public final class RankStackLimits implements ModInitializer {
         luckPerms = LuckPermsProvider.get();
         config = RankStackLimitsConfig.load();
         resolver = new LuckPermsStackLimitResolver(luckPerms, config);
+        RankStackLimitRuntime.register();
 
-        LOGGER.info("Rank Stack Limits phase 2 initialized: default={}, max={}, metaKey={}, preserveVanillaUnstackables={}",
+        LOGGER.info("Rank Stack Limits phase 4 initialized: default={}, max={}, metaKey={}, preserveVanillaUnstackables={}",
                 config.defaultStackLimit(), config.maximumStackLimit(), config.luckPermsMetaKey(), config.preserveVanillaUnstackables());
     }
 
