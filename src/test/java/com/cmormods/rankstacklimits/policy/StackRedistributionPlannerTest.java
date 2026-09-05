@@ -33,10 +33,11 @@ final class StackRedistributionPlannerTest {
     @Test
     void allGeneratedChunksPreserveCountAndRespectLimit() {
         for (int limit = 1; limit <= 99; limit++) {
+            int currentLimit = limit;
             for (int count = 0; count <= 500; count++) {
-                List<Integer> chunks = StackRedistributionPlanner.splitCount(count, limit);
+                List<Integer> chunks = StackRedistributionPlanner.splitCount(count, currentLimit);
                 assertEquals(count, chunks.stream().mapToInt(Integer::intValue).sum());
-                assertTrue(chunks.stream().allMatch(chunk -> chunk >= 1 && chunk <= limit));
+                assertTrue(chunks.stream().allMatch(chunk -> chunk >= 1 && chunk <= currentLimit));
             }
         }
     }
