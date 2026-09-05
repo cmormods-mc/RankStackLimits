@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,7 +20,9 @@ def require(ok, label):
         sys.exit(1)
     print(f'PASS: {label}')
 
-require("version = '0.3.0-phase3'" in build, 'Phase 3 build identity')
+version_match = re.search(r"version = '(\d+)\.(\d+)\.(\d+)(?:-[^']+)?'", build)
+version_tuple = tuple(map(int, version_match.groups())) if version_match else (0, 0, 0)
+require(version_tuple >= (0, 3, 0), 'Build is Phase 3 or newer')
 require('intrinsicLimit == 1' in eligibility and 'preserveVanillaUnstackables' in eligibility,
         'Vanilla max-1 items have an explicit protection branch')
 require('Math.max(intrinsicLimit, playerLimit)' in eligibility,

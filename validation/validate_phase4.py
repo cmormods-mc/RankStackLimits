@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import json
+import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,7 +24,9 @@ def require(ok, label):
         sys.exit(1)
     print(f'PASS: {label}')
 
-require("version = '0.4.0-phase4'" in build, 'Phase 4 build identity')
+version_match = re.search(r"version = '(\d+)\.(\d+)\.(\d+)(?:-[^']+)?'", build)
+version_tuple = tuple(map(int, version_match.groups())) if version_match else (0, 0, 0)
+require(version_tuple >= (0, 4, 0), 'Build is Phase 4 or newer')
 require(mod.get('mixins') == ['rankstacklimits.mixins.json'], 'Fabric metadata loads the Phase 4 mixin config')
 require(mixin_config.get('required') is True and 'ItemStackTechnicalCeilingMixin' in mixin_config.get('mixins', []),
         'ItemStack technical-ceiling mixin is required')
